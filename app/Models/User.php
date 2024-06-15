@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Company;
-use App\Models\PhoneNumber;
 
 class User extends Authenticatable
 {
@@ -44,13 +42,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function companyNumber(){  //create relation brtween user and phone_numbers table through compines table
-        return $this->hasOneThrough(PhoneNumber::class,Company::class);
-    }
-
-    public function companyname(){
-        return $this->hasOne(Company::class,'user_id','id');
-    }
     
 }
