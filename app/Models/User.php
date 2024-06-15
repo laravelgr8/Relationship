@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Post;
-use App\Models\Role;
+use App\Models\Company;
+use App\Models\PhoneNumber;
 
 class User extends Authenticatable
 {
@@ -45,12 +45,12 @@ class User extends Authenticatable
     ];
 
 
-    public function post(){
-        return $this->hasMany(Post::class,'user_id','id');
+    public function companyNumber(){  //create relation brtween user and phone_numbers table through compines table
+        return $this->hasOneThrough(PhoneNumber::class,Company::class);
     }
 
-    //for many to many
-    public function roles(){
-        return $this->belongsToMany(Role::class,'user_roles','user_id','role_id');
+    public function companyname(){
+        return $this->hasOne(Company::class,'user_id','id');
     }
+    
 }
