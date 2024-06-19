@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Post;
-use App\Models\Role;
+
 
 class User extends Authenticatable
 {
@@ -49,8 +49,9 @@ class User extends Authenticatable
         return $this->hasMany(Post::class,'user_id','id');
     }
 
-    //for many to many
-    public function roles(){
-        return $this->belongsToMany(Role::class,'user_roles','user_id','role_id');
+    //this function show post title in one column with seperate ,(comma)
+    public function getConcatenatedTitlesAttribute()
+    {
+        return $this->post()->pluck('title')->implode(', ');
     }
 }
